@@ -3,31 +3,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  Unique,
   OneToOne,
   JoinColumn,
-  ManyToOne,
-  OneToMany,
 } from 'typeorm';
-
-@Entity()
-@Unique(['email'])
-export class CustomerAuth extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column({ type: 'boolean', default: false })
-  isVerified: boolean;
-
-  @OneToMany(() => CustomerVerification, (emailCode) => emailCode.customer)
-  verificationCode: CustomerVerification[];
-}
+import { CustomerAuth } from './customerAuth.model';
 
 @Entity()
 export class CustomerDetails extends BaseEntity {
@@ -46,16 +25,4 @@ export class CustomerDetails extends BaseEntity {
   @OneToOne(() => CustomerAuth)
   @JoinColumn()
   customer: CustomerAuth;
-}
-
-@Entity()
-export class CustomerVerification extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @ManyToOne(() => CustomerAuth, (auth) => auth.verificationCode)
-  customer: CustomerAuth;
-
-  @Column()
-  verificationCode: number;
 }

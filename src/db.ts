@@ -1,10 +1,10 @@
 import { createConnection } from 'typeorm';
 import dotenv from 'dotenv';
-import {
-  CustomerDetails,
-  CustomerAuth,
-  CustomerVerification,
-} from '../customer/model/customerDetails.model';
+import { CustomerAddress } from '../customer/model/customerAddress.model';
+import { CustomerAuth } from '../customer/model/customerAuth.model';
+import { CustomerDetails } from '../customer/model/customerDetails.model';
+import { CustomerVerification } from '../customer/model/customerVerification.model';
+
 dotenv.config();
 
 export const db_connect = () => {
@@ -15,7 +15,12 @@ export const db_connect = () => {
     username: process.env.db_username,
     password: process.env.db_password,
     database: process.env.db_database,
-    entities: [CustomerAuth, CustomerDetails, CustomerVerification],
+    entities: [
+      CustomerAuth,
+      CustomerDetails,
+      CustomerVerification,
+      CustomerAddress,
+    ],
     synchronize: true, // false if production
   })
     .then(() => console.log('Database Connected Successfully'))
